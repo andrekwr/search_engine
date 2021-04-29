@@ -11,7 +11,7 @@ from se.archive import save_archive
 
 
 MSG_DESCRIPTION = '''Le arquivo de tweets e gera JSON com tweets tokenizados.
-Tweets obtidos de https://www.kaggle.com/kingburrito666/better-donald-trump-tweets
+Tweets obtidos de https://www.kaggle.com/ayhmrba/elon-musk-tweets-2010-2021
 '''
 
 
@@ -19,7 +19,7 @@ def read_donald_tweets(path):
     df = pd.read_csv(path)
     docs = []
     tokenizer = TweetTokenizer()
-    for text in df['Tweet_Text']:
+    for text in df['tweet']:
         toks = tokenizer.tokenize(text)
         docs.append(toks)
     return docs
