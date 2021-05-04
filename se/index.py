@@ -3,6 +3,20 @@ import json
 from collections import defaultdict
 from se.normalize import clean_text
 
+
+class Index:
+    def __init__(self, index):
+        self.index = index
+
+    def lookup(self, query_term):
+        if query_term in self.index:
+            return self.index[query_term]
+        else:
+            return []
+
+
+##Palavra: [doc1, doc2, doc3]
+##Palavra: {doc1 : frequencia, doc2: frequencia, doc3: frequencia}
 def make_index(docs):
     index = defaultdict(lambda: defaultdict(int))
     for k, doc in enumerate(docs):
@@ -12,10 +26,6 @@ def make_index(docs):
             index[word][k] += 1
 
     return index
-
-
-##Palavra: [doc1, doc2, doc3]
-##Palavra: {doc1 : frequencia, doc2: frequencia, doc3: frequencia}
 
 
 def save_index(index, path):

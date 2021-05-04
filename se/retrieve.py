@@ -1,5 +1,9 @@
+from se.index import Index
+
+
 def retrieve(index, query):
-    index_query = set(index[query[0]])
+    idx = Index(index)
+    index_query = set(idx.lookup(query[0]))
     for query_term in query[1:]:
-        index_query &= set(index[query_term])
+        index_query &= set(idx.lookup(query_term))
     return index_query
