@@ -4,8 +4,7 @@ from argparse import ArgumentParser
 from se.archive import load_archive
 from se.index import load_index
 from se.search import search
-
-
+from se.normalize import clean_text
 MSG_DESCRIPTION = "Busca."
 
 
@@ -19,9 +18,13 @@ def main():
     docs = load_archive(args.filename_docs)
     index = load_index(args.filename_index)
 
-    query = " ".join(args.query)
 
-    docs_searched = search(query.lower(), index, docs)
+    #[palavra1, operador, palavra2, operador, palavra3]
+    list_query = list(map(clean_text, args.query))
+
+    query = " ".join(list_query)
+
+    docs_searched = search(query, index, docs)
 
     for doc in docs_searched:
         print(" ".join(doc))

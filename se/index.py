@@ -1,13 +1,14 @@
 import json
 
 from collections import defaultdict
-
+from se.normalize import clean_text
 
 def make_index(docs):
     index = defaultdict(lambda: defaultdict(int))
     for k, doc in enumerate(docs):
         words = doc
         for word in words:
+            word = clean_text(word)
             index[word][k] += 1
 
     return index

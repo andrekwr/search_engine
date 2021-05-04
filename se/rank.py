@@ -16,7 +16,7 @@ def score_document_tf_idf(query, doc_number, doc, index):
         tf_idf += np.log2(1 + index[word][str(doc_number)]) * np.log2(
             N / len(index[word])
         )
-    print(tf_idf)
+    #print(tf_idf)
     return tf_idf
 
 
