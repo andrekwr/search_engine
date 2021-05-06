@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 
+from se.index import Index
+
 
 class Node:
-    def evaluate(self, index):
+    def evaluate(self, index: Index):
         return set()
 
 
@@ -13,8 +15,8 @@ class Term(Node):
         super().__init__()
         self.term = term
 
-    def evaluate(self, index):
-        return set(index[self.term])
+    def evaluate(self, index: Index):
+        return set(index.lookup(self.term))
 
 
 class Operation(Node):
@@ -25,7 +27,7 @@ class Operation(Node):
     def combine(self, result, new_results):
         return set()
 
-    def evaluate(self, index):
+    def evaluate(self, index: Index):
         result = self.nodes[0].evaluate(index)
         for node in self.nodes[1:]:
             result = self.combine(result, node.evaluate(index))
@@ -68,11 +70,21 @@ def build_query(query):
 
 
 def parse_raw_query(raw_query: str):
-    return raw_query.split()
+    q = raw_query.split()
+
+    # obrigado log comp
+    # não funciona precedência, formatação requerida é meio esquisita
+    result = f'["term", "{q[0]}"]'
+    if len(q) % 2 == 0:
+        raise Exception("Query incompleta.")
+    elif len(q) > 1:
+        if q[1] in ["and", "or"]:
+            result = f'["{q[1]}", {result}, {parse_raw_query(" ".join(q[2:]))}]'
+
+    return result
 
 
 def parse_json_query(json_query: str):
     q = json.loads(json_query)
-    print(q)
     query = build_query(q)
     return query

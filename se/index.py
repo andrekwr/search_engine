@@ -14,6 +14,12 @@ class Index:
         else:
             return []
 
+    def wordCount(self, query_term, doc_number):
+        if doc_number in self.index[query_term]:
+            return self.index[query_term][doc_number]
+        else:
+            return 0
+
 
 ##Palavra: [doc1, doc2, doc3]
 ##Palavra: {doc1 : frequencia, doc2: frequencia, doc3: frequencia}

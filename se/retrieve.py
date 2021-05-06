@@ -1,5 +1,7 @@
 from se.index import Index
 
+# Arquivo inutilizado
+
 
 def retrieve(index, query):
     idx = Index(index)

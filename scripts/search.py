@@ -29,7 +29,7 @@ def main():
 
     for doc in docs_searched:
         print(punctuationCorrection(" ".join(doc)))
-        print("=" * 80)
+        print("=" * 100)
 
     if len(docs_searched) == 0:
         print("No result found.")
