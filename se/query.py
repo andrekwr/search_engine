@@ -72,7 +72,6 @@ def build_query(query):
 def parse_raw_query(raw_query: str):
     q = raw_query.split()
 
-    # obrigado log comp
     # não funciona precedência, formatação requerida é meio esquisita
     result = f'["term", "{q[0]}"]'
     if len(q) % 2 == 0:
