@@ -1,5 +1,9 @@
 # Uma máquina de busca para fins didáticos.
 
+André Weber
+
+Matheus Pellizzon
+
 ## Conceitos atigindos
 - [x] Limpeza dos dados
     - Arquivo: normalize.py **→** remove_punctuation, stemmer, punctuationCorrection, Clean_text
