@@ -56,7 +56,7 @@ def build_query(query):
         # ["term", "abelha"]
         return Term(query[1])
     else:
-        # ["and", ["term", "abelha"], ["term", "rainha"]]
+        # ["and", [or, ["term", "non"], ["term", not]], [or, ["term", "safe"], ["term", "condom"]]]
         arg_list = []
         for arg in query[1:]:
             arg_node = build_query(arg)
@@ -69,17 +69,39 @@ def build_query(query):
             raise KeyError(f"Operação {node_type} desconhecida.")
 
 
-def parse_raw_query(raw_query: str):
-    q = raw_query.split()
+
+def parse_raw_query_or(q, i, n):
 
     # não funciona precedência, formatação requerida é meio esquisita
-    result = f'["term", "{q[0]}"]'
+    result = f'["term", "{q[i]}"]'
+    i += 1
+    if i == n:
+        return result,i
     if len(q) % 2 == 0:
         raise Exception("Query incompleta.")
     elif len(q) > 1:
-        if q[1] in ["and", "or"]:
-            result = f'["{q[1]}", {result}, {parse_raw_query(" ".join(q[2:]))}]'
+        while q[i]  == "or":
+            res, i = parse_raw_query_or(q, i+1,n)
+            result = f'["or", {result}, {res}]'
+            if i == n:
+                return result,i
 
+    return result,i
+
+def parse_raw_query(raw_query: str):
+    q = raw_query.split()
+    n = len(q)
+
+    # não funciona precedência, formatação requerida é meio esquisita
+    result, i = parse_raw_query_or(q, 0,n)
+    if i == n:
+        return result
+
+    while q[i] == "and":
+        res, i = parse_raw_query_or(q, i+1,n)
+        result = f'["and", {result}, {res}]'
+        if i == n:
+            return result
     return result
 
 

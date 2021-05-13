@@ -15,6 +15,8 @@ class Index:
             return []
 
     def wordCount(self, query_term, doc_number):
+        if query_term not in self.index:
+            return 0
         if doc_number in self.index[query_term]:
             return self.index[query_term][doc_number]
         else:

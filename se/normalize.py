@@ -2,7 +2,7 @@ import re
 from nltk.stem import LancasterStemmer
 
 
-def remove_pontuation(text):
+def remove_punctuation(text):
     text = re.sub(
         r"(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^\s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^\s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^\s]{2,}|www.[a-zA-Z0-9]+.[^\s]{2,})",
         "",
@@ -21,7 +21,7 @@ def stemmer(text):
 
 
 def clean_text(text):
-    text = remove_pontuation(text)
+    text = remove_punctuation(text)
     text = stemmer(text)
     return text.lower()
 

@@ -16,7 +16,8 @@ def score_document_tf_idf(query, doc_number, doc, index: Index):
     tf_idf = 0
     for word in query:
         wordCnt = index.wordCount(word, str(doc_number))
-        tf_idf += np.log2(1 + wordCnt) * np.log2(N / len(index.lookup(word)))
+        if wordCnt != 0:
+            tf_idf += np.log2(1 + wordCnt) * np.log2(N / len(index.lookup(word)))
     # print(tf_idf)
     return tf_idf
 
