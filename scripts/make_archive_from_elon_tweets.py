@@ -10,7 +10,6 @@ from nltk.tokenize import TweetTokenizer
 from se.archive import save_archive
 
 
-
 MSG_DESCRIPTION = """Le arquivo de tweets e gera JSON com tweets tokenizados.
 Tweets obtidos de https://www.kaggle.com/ayhmrba/elon-musk-tweets-2010-2021
 """

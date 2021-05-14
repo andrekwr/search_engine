@@ -1,5 +1,5 @@
 import json
-from se.query import parse_raw_query, parse_json_query, build_query,parse_raw_query_or
+from se.query import parse_raw_query, parse_json_query, build_query, parse_raw_query_or
 from se.retrieve import retrieve
 from se.rank import rank_documents
 from se.index import Index

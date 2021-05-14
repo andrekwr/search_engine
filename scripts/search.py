@@ -22,12 +22,8 @@ def main():
     docs = load_archive(args.filename_docs)
     index = load_index(args.filename_index)
 
-
     terms = [args.query[i] for i in range(len(args.query)) if i % 2 == 0]
-
     ops = [args.query[i] for i in range(len(args.query)) if i % 2 != 0]
-
-
 
     counter = 0
     new_query = []
@@ -35,22 +31,22 @@ def main():
         new_query.append(term)
         synonyms = wordnet.synsets(term)
         if len(synonyms) != 0:
-            new_query.append('or')
+            new_query.append("or")
         for syn in wordnet.synsets(term):
             for l in syn.lemmas():
                 if l.name() not in new_query:
-                    new_query.append(l.name()) #syn
-                    new_query.append('or')   
+                    new_query.append(l.name())  # syn
+                    new_query.append("or")
 
-        if (counter + 1 == len(terms)):
+        if counter + 1 == len(terms):
             if new_query[-1] == "or":
                 new_query.pop()
             continue
-        
+
         if new_query[-1] == "or":
             new_query.pop()
         new_query.append(ops[counter])
-        counter += 1        
+        counter += 1
 
     # [palavra1, operador, palavra2, operador, palavra3]
     list_query = list(map(clean_text, new_query))

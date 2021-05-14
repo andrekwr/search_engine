@@ -2,7 +2,7 @@ import numpy as np
 
 from se.index import Index
 
-# Podemos remover?
+# inutilizada
 def score_document(query, doc):
     score = 0
     for word in doc:
@@ -18,7 +18,6 @@ def score_document_tf_idf(query, doc_number, doc, index: Index):
         wordCnt = index.wordCount(word, str(doc_number))
         if wordCnt != 0:
             tf_idf += np.log2(1 + wordCnt) * np.log2(N / len(index.lookup(word)))
-    # print(tf_idf)
     return tf_idf
 
 
